@@ -1,9 +1,7 @@
 package like_book.models.entities;
-
 import jakarta.persistence.*;
 import like_book.models.enums.MoodType;
-
-import java.util.Objects;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,6 +22,7 @@ public class Mood {
     private Set<Post> posts;
 
     public Mood() {
+        this.posts = new HashSet<>();
     }
 
     public long getId() {
@@ -56,18 +55,5 @@ public class Mood {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Mood mood = (Mood) o;
-        return id == mood.id && moodType == mood.moodType && Objects.equals(description, mood.description) && Objects.equals(posts, mood.posts);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, moodType, description, posts);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class HomeController {
@@ -34,7 +35,12 @@ public class HomeController {
         List<Post> myPosts = this.postService
                 .getAllPostByUser(this.userService.getByUsername(userSession.getUsername()));
 
-        List<Post> otherPosts = this.postService.getAllPosts();
+        List<Post> otherPosts = this
+                .postService
+                .getAllPosts()
+                .stream()
+                .filter(u -> !Objects.equals(u.getUser().getUsername(), this.userSession.getUsername()))
+                .toList();
 
         String username = this.userSession.getUsername();
         model.addAttribute("myPosts",myPosts);

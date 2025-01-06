@@ -2,6 +2,7 @@ package like_book.models.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -21,14 +22,27 @@ public class User {
     @Column(nullable = false,unique = true)
     private String email;
 
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    private Set<Post> addedPosts;
+
     @ManyToMany(mappedBy = "userLikes",fetch = FetchType.EAGER)
     private Set<Post> likedPosts;
 
     public User() {
+        this.addedPosts = new HashSet<>();
+        this.likedPosts = new HashSet<>();
     }
 
     public Set<Post> getLikedPosts() {
         return likedPosts;
+    }
+
+    public Set<Post> getAddedPosts() {
+        return addedPosts;
+    }
+
+    public void setAddedPosts(Set<Post> addedPosts) {
+        this.addedPosts = addedPosts;
     }
 
     public void setLikedPosts(Set<Post> likedPosts) {
@@ -65,18 +79,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(likedPosts, user.likedPosts);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, password, email, likedPosts);
     }
 }

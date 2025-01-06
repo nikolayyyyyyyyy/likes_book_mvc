@@ -5,7 +5,7 @@
 <body>
 <header th:replace="fragments/commons::nav"></header>
 <main>
-    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add post</span></h1>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Добави пост</span></h1>
     <hr class="hr-3 w-25 bg-white"/>
 
     <form class="mx-auto w-25 bg-blur rounded"
@@ -16,7 +16,7 @@
 
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="content" class="h4 mb-2">Content</label>
+                <label for="content" class="h4 mb-2">Съдържание</label>
             </div>
             <textarea type="text"
                       class="form-control"
@@ -28,23 +28,28 @@
 
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
-                <label for="mood" class="h4 mb-2">Mood</label>
+                <label for="mood" class="h4 mb-2">Настроение</label>
             </div>
             <select class="browser-default custom-select"
                     id="mood"
                     name="mood"
                     th:field="*{mood}"
             >
-                <option value="">Select mood</option>
-                <option value="HAPPY">Happy</option>
-                <option value="SAD">Sad</option>
-                <option value="INSPIRED">Inspired</option>
+                <option value="">Избери настриение</option>
+                <option value="HAPPY">Щастлив</option>
+                <option value="EXCITED">Въодушевен</option>
+                <option value="ANGRY">Ядосан</option>
+                <option value="SHY">Страмежлив</option>
+                <option value="IN_LOVE">Влюбен</option>
+                <option value="FATHER">Баща</option>
+                <option value="NEW_JOB">Нова работа</option>
+                <option value="INSPIRED">Вдъхновен</option>
             </select>
 
         </div>
 
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-warning  mb-3" value="Register">Add post</button>
+            <button type="submit" class="btn btn-warning  mb-3" value="Register">Добави</button>
         </div>
 
     </form>

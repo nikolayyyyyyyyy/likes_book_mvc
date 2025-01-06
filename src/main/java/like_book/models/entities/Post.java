@@ -1,5 +1,7 @@
 package like_book.models.entities;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,11 +15,11 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "mood_id")
     private Mood mood;
 
@@ -30,6 +32,7 @@ public class Post {
     private Set<User> userLikes;
 
     public Post() {
+        this.userLikes = new HashSet<>();
     }
 
     public long getId() {
@@ -70,18 +73,5 @@ public class Post {
 
     public void setUserLikes(Set<User> userLikes) {
         this.userLikes = userLikes;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Post post = (Post) o;
-        return id == post.id && Objects.equals(content, post.content) && Objects.equals(user, post.user) && Objects.equals(mood, post.mood) && Objects.equals(userLikes, post.userLikes);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, content, user, mood, userLikes);
     }
 }

@@ -34,6 +34,10 @@ public class SeedMoods implements CommandLineRunner {
             newJob.setMoodType(MoodType.NEW_JOB);
             newJob.setDescription("I am soo newJob.");
 
+            Mood inLove = new Mood();
+            newJob.setMoodType(MoodType.IN_LOVE);
+            newJob.setDescription("I am soo in love.");
+
             this.moodService.createMood(happy);
             this.moodService.createMood(excited);
             this.moodService.createMood(inspired);

@@ -1,5 +1,6 @@
 package like_book.services.impl;
 
+import jakarta.transaction.Transactional;
 import like_book.config.UserSession;
 import like_book.models.dtos.PostDTO;
 import like_book.models.entities.Mood;
@@ -51,16 +52,32 @@ public class PostServiceImpl implements PostService {
 
         this.postRepository.save(post);
         mood.getPosts().add(post);
+        user.getAddedPosts().add(post);
         return true;
     }
 
     @Override
     public List<Post> getAllPostByUser(User user) {
-        return List.of();
+        return this.postRepository.findAllByUser(user);
     }
 
     @Override
     public List<Post> getAllPosts() {
-        return List.of();
+        return this.postRepository.findAll();
+    }
+
+    @Override
+    public boolean deletePost(long id) {
+        if(this.postRepository.findById(id).orElse(null) == null){
+            return false;
+        }
+
+        this.postRepository.deleteById(id);
+        return true;
+    }
+
+    @Override
+    public Post getPostById(long id) {
+        return this.postRepository.findById(id).orElse(null);
     }
 }
